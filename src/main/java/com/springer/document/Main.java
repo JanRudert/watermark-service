@@ -19,8 +19,13 @@ import io.undertow.servlet.api.ListenerInfo;
  */
 public class Main {
 
-	public static void main(final String[] args) throws ServletException {
+	private Undertow server;
 
+	public static void main(final String[] args) throws ServletException {
+		new Main().start();
+	}
+
+	public void start() throws ServletException {
 		DeploymentInfo servletBuilder =
 			Servlets.deployment().setDeploymentName("wm.war").setClassLoader(Main.class.getClassLoader()).setContextPath("/wm")
 				.addInitParameter("resteasy.guice.modules", MainGuiceModule.class.getName())
@@ -34,8 +39,14 @@ public class Main {
 
 		PathHandler pathHandler = Handlers.path(Handlers.redirect("/wm")).addPrefixPath("/wm", servletDeploymentHandler);
 
-		Undertow server = Undertow.builder().addHttpListener(8080, "localhost").setHandler(pathHandler).build();
+		server = Undertow.builder().addHttpListener(8080, "localhost").setHandler(pathHandler).build();
 
 		server.start();
+	}
+
+	public void stop() {
+
+		server.stop();
+
 	}
 }

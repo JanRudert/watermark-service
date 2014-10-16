@@ -21,7 +21,8 @@ The service is based on the web server undertow.io, the JAX-RS implementation of
 1. `git clone https://github.com/JanRudert/watermark-service.git` checks out the project from github
 2. `mvn test` runs unit tests
 3. `mvn package` runs unit tests and builds the artifact
-4. `java -jar target/watermark-service-1.0-SNAPSHOT.jar` runs the artifact and makes it's REST API available under http://localhost:8080/wm (see below)
+4. `mvn integration-test` runs the integration tests
+5. `java -jar target/watermark-service-1.0-SNAPSHOT.jar` runs the artifact and makes it's REST API available under http://localhost:8080/wm (see below)
 
 
 ## REST API
